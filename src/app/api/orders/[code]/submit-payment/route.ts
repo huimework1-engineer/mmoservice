@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server'
 import { sendOrderPaymentSubmittedToSheet } from '@/lib/googleSheets'
 
-export async function POST(request: Request, { params }: { params: { code: string } }) {
+export async function POST(request: Request, { params }: { params: Promise<{ code: string }> }) {
   try {
-    const { code } = params
+    const { code } = await params
     
     // 1. Update in DB: orderStatus = payment_submitted, paymentStatus = submitted
     // await prisma.order.update({ ... })
